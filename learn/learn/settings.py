@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'boards.apps.BoardsConfig',
+    'accounts.apps.AccountsConfig',
     'widget_tweaks'
 ]
 
@@ -122,4 +123,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+LOGOUT_REDIRECT_URL = 'boardsHome'

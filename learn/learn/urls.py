@@ -20,7 +20,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('boards/', include('boards.urls')),
     path('', views.home, name='home'),
+    path('accounts', include('accounts.urls')),
     # path('login/'),
-    # path('signup/'),
+    # path('signup/'), home path of accounts
     # path('reset-pw/')
 ]
