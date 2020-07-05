@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Post Something
+{% endblock title %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">
+        <a href='{% url 'boardsHome' %}'>Home</a>
+    </li>
+    <li class='breadcrumb-item active'>
+        <a href="{% url 'boardTopics' board.pk%}">{{ board.name }}</a>
+    </li>
+    <li class='breadcrumb-item active'>
+        <a href="{% url 'postsList' pk=board.pk pk2=topic.pk %}">{{ topic.name }}</a>
+    </li>
+    <li class='breadcrumb-item active'>Post Something</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        {% include 'boards/includes/newForm.html' %}
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+    
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">
+        <a href='{% url 'boardsHome' %}'>Home</a>
+    </li>
+    <li class='breadcrumb-item active'>
+        <a href="{% url 'boardTopics' board.pk%}">{{ board.name }}</a>
+    </li>
+    <li class='breadcrumb-item active'>{{ topic.name }}</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+    <div class='mb-4'>
+        <a href="{% url 'newPost' pk=board.pk pk2=topic.pk %}" class = 'btn btn-primary'>Create New Post</a>
+    </div>
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Author</th>
+                <th>Post</th>
+                <th>Posted at</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in topic.post_set.all %}
+                <tr>
+                    <td>{{ post.created_by.username }}</td>
+                    <td>{{ post.msg }}</td>
+                    <td>{{ post.created_at }}</td>
+                </tr>                    
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
