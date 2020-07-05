@@ -9,4 +9,4 @@ class newTopicForm(forms.ModelForm):
 class newPostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['msg']
+        fields = ['msg', 'description']

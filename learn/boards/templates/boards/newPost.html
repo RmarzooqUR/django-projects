@@ -18,7 +18,7 @@
 {% endblock breadcrumb %}
 
 {% block content %}
-    <form method="POST" novalidate>
+    <form method="post" novalidate>
         {% csrf_token %}
         {% include 'boards/includes/newForm.html' %}
         <button type="submit" class="btn btn-success">Submit</button>

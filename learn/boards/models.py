@@ -17,6 +17,7 @@ class Topics(models.Model):
 
 class Post(models.Model):
     msg = models.TextField(max_length=1000)
+    description = models.CharField(max_length=255,default='default')
     topic = models.ForeignKey(Topics, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)

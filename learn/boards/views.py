@@ -50,7 +50,7 @@ def newPost(request, pk, pk2):
     user = User.objects.first()
     if request.method=='POST':
         form = newPostForm(request.POST)
-        if form.is_valid:
+        if form.is_valid():
             post = form.save(commit=False)
             post.created_by = user
             post.topic = topic
