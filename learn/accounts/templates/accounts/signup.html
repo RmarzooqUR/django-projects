@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container">
+    <h2>Sign Up</h2>
+    <from method="POST" novalidate>
+        {% csrf_token %}
+        {% include 'accounts/includes/newForm.html' %}
+        {% comment %} {{form.as_p}} {% endcomment %}
+        <button class="btn btn-primary">Sign Up</button>
+    </form>
+</div>
+{% endblock body %}

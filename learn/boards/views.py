@@ -6,7 +6,12 @@ from .forms import newTopicForm, newPostForm
 # Create your views here.
 
 def home(request):
-    return HttpResponse('Hello world, you are at home. Go to <a href="/boards">Boards</a>')
+    return HttpResponse(
+        'Hello world, you are at home. Go to <ul>'+
+        '<li><a href="/boards">Boards</a></li>'+
+        '<li><a href="/accounts">Accounts</li>'+
+        '</ul>'
+    )
 
 def boardsHome(request):
     boards = Boards.objects.all()
