@@ -2,11 +2,14 @@
 {% block body %}
 <div class="container">
     <h2>Sign Up</h2>
-    <from method="POST" novalidate>
+    <form method="post">
         {% csrf_token %}
         {% include 'accounts/includes/newForm.html' %}
         {% comment %} {{form.as_p}} {% endcomment %}
-        <button class="btn btn-primary">Sign Up</button>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
     </form>
+    <hr>
+    <a href="{% url 'boardsHome' %}"><button class="btn btn-primary">Return Home</button></a>
+
 </div>
 {% endblock body %}

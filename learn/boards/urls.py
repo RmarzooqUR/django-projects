@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     path('', views.boardsHome, name='boardsHome'),
     path('<int:pk>/',views.boardTopics,name='boardTopics'),
