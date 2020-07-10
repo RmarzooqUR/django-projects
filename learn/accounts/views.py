@@ -15,8 +15,6 @@ def signup(request):
         form = signUpForm()
     return render(request, 'accounts/signup.html', context={'form':form})
 
-def login(request):
-    pass
 
 def reset_pw(request):
     pass
