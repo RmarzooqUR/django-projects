@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 from .models import Boards, Topics, User
 from .forms import newTopicForm, newPostForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -24,6 +25,8 @@ def boardTopics(request, pk):
         raise Http404
     return render(request, template_name='boards/board.html', context={'board':board})
 
+
+@login_required(redirect_field_name='login')
 def newTopic(request, pk):
     board = get_object_or_404(Boards, pk=pk)
     user = User.objects.first()
@@ -49,6 +52,7 @@ def postsFeed(request, pk,pk2):
         context={'topic':topic, 'board':board}
     )
 
+@login_required(redirect_field_name='login')
 def newPost(request, pk, pk2):
     board = Boards.objects.get(pk=pk)
     topic = Topics.objects.get(pk=pk2)

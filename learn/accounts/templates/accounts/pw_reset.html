@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Reset Password
+{% endblock title %}
+
+{% block body %}
+
+<div class="container col-lg-4 col-md-6 col-sm-8">
+    <h2 class='text-center my-4'>Reset your password</h2>
+    <div class='card'>
+        <div class='card-body'>
+            <p class='text-muted'>Enter your email to recieve a password reset link</p>
+            <form method='post' novalidate>
+                {% csrf_token %}
+                {% include 'accounts/includes/newForm.html' %}
+                <button type="submit" class='btn btn-primary btn-block'>Submit</button>
+            </form>
+        </div>
+        <div class='card-footer text-muted text-center'>
+            <a href="{% url 'login' %}">Login</a> | <a href="{% url 'signup' %}">Sign Up</a>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
