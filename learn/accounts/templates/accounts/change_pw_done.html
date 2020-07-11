@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class='container col-lg-4 col-md-6 col-sm-8'>
+    <h2 class='text-center my-4'>Password Changed</h2>
+    <div class='card'>
+        <div class='card-body'>
+            <p class='alert alert-success'>Your Password has been successfully changed, you can now login with the new password</p>
+            <a class='btn btn-success btn-block' href="{% url 'boardsHome' %}">Return to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock body %}
