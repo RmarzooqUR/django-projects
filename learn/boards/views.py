@@ -29,13 +29,13 @@ def boardTopics(request, pk):
 @login_required
 def newTopic(request, pk):
     board = get_object_or_404(Boards, pk=pk)
-    user = User.objects.first()
+    # user = User.objects.first()
     if request.method == 'POST':
         form = newTopicForm(request.POST)
         if form.is_valid():
             topic = form.save(commit=False)
             topic.board = board
-            topic.starter = user
+            topic.starter = request.user
             topic.save()
             return redirect('boardTopics', pk=board.pk)
     else:
@@ -56,15 +56,15 @@ def postsFeed(request, pk,pk2):
 def newPost(request, pk, pk2):
     board = Boards.objects.get(pk=pk)
     topic = Topics.objects.get(pk=pk2)
-    user = User.objects.first()
-    if request.method=='POST':
+    # user = User.objects.first()
+    if request.method == 'POST':
         form = newPostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            post.created_by = user
+            post.created_by = request.user
             post.topic = topic
             post.save()
-            return redirect('boardTopics', pk=board.pk)
+            return redirect('postsList', pk=board.pk, pk2=topic.pk)
     else:
         form = newPostForm()
     return render(request, 'boards/newPost.html', context={'form':form, 'board':board, 'topic':topic})
