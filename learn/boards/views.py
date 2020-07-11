@@ -26,7 +26,7 @@ def boardTopics(request, pk):
     return render(request, template_name='boards/board.html', context={'board':board})
 
 
-@login_required(redirect_field_name='login')
+@login_required
 def newTopic(request, pk):
     board = get_object_or_404(Boards, pk=pk)
     user = User.objects.first()
@@ -52,7 +52,7 @@ def postsFeed(request, pk,pk2):
         context={'topic':topic, 'board':board}
     )
 
-@login_required(redirect_field_name='login')
+@login_required
 def newPost(request, pk, pk2):
     board = Boards.objects.get(pk=pk)
     topic = Topics.objects.get(pk=pk2)
