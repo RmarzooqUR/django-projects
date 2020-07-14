@@ -1,3 +1,4 @@
 django
 django-widget-tweaks
 pylint-django
+django-environ
