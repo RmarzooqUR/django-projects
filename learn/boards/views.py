@@ -46,6 +46,8 @@ def newTopic(request, pk):
 def postsFeed(request, pk,pk2):
     board = get_object_or_404(Boards, pk=pk)
     topic = get_object_or_404(Topics, pk=pk2)
+    topic.viewCount += 1
+    topic.save()
     return render(
         request,
         template_name='boards/postFeed.html',

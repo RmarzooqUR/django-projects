@@ -24,6 +24,7 @@
                 <th>Starter</th>
                 <th>Last Update</th>
                 <th>No of Posts</th>
+                <th>Views</th>
             </tr>
         </thead>
         <tbody>
@@ -32,8 +33,21 @@
                     <td><a href='{% url 'postsList' pk=topic.board.pk pk2=topic.pk %}'>{{ topic.name }}</a></td>
                     <td>{{ topic.description }}</td>
                     <td>{{ topic.starter.username }}</td>
-                    <td>{{ topic.last_update }}</td>
-                    <td>0</td>
+                    <td>
+                        {% with post=topic.getLastPost %}
+                            {% if post %}
+                                <small class="text-muted">
+                                    <a href="{% url 'postsList' topic.board.pk topic.pk %}" style="text-decoration:none">
+                                        by {{ post.created_by.username }} at {{ post.created_at }}
+                                    </a>
+                                <small/>
+                            {% else %}
+                                <small class="text-muted">No posts yet</small>
+                            {% endif %}
+                        {% endwith %}
+                    </td>
+                    <td>{{ topic.post_set.count }}</td>
+                    <td> {{ topic.viewCount }} </td>
                 </tr>                    
             {% endfor %}
         </tbody>

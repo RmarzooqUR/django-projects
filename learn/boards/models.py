@@ -5,10 +5,10 @@ from django.utils.text import Truncator
 class Boards(models.Model):
     name = models.CharField(max_length=50,unique=True)
     description = models.CharField(max_length=255)
-    
+
     def __str__(self):
         return self.name
-
+    
 
 class Topics(models.Model):
     name = models.CharField(max_length=50)
@@ -16,10 +16,12 @@ class Topics(models.Model):
     last_update = models.DateTimeField(auto_now_add=True)
     board = models.ForeignKey(Boards,on_delete=models.CASCADE)
     starter = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    viewCount = models.PositiveIntegerField(default=0)
     def __str__(self):
         return self.name
-    
+
+    def getLastPost(self):
+        return Post.objects.filter(topic=self).order_by('-created_at').first()    
 
 class Post(models.Model):
     msg = models.TextField(max_length=1000)
