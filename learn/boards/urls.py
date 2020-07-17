@@ -9,4 +9,5 @@ urlpatterns = [
     path('<int:pk>/new/',views.newTopic,name='newTopic'),
     path('<int:pk>/<int:pk2>/', views.postsFeed, name='postsList'),
     path('<int:pk>/<int:pk2>/new/', views.newPost, name='newPost'),
+    path('<int:board_pk>/<int:topic_pk>/<int:post_pk>', views.EditPostView.as_view(), name='editPost')
 ]

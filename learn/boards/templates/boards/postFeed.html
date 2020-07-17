@@ -35,12 +35,13 @@
                                     <small class="text-right text-muted">Created at: {{ post.created_at}}</small>
                                 </div>
                             </div>
+                            <div><em>{{ post.description }}</em></div>
                             {{ post.msg }}
                         </div>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="#"><button type="button" class="btn btn-primary">Edit</button></a>
+                    <a href="{% url 'editPost' board.pk topic.pk post.pk %}"><button type="button" class="btn btn-primary">Edit</button></a>
                 </div>                
             </div>
         {% else %}
@@ -60,6 +61,7 @@
                                     <small class="text-right text-muted">Created at: {{ post.created_at}}</small>
                                 </div>
                             </div>
+                            <div><em>{{ post.description }}</em></div>
                             {{ post.msg }}
                         </div>
                     </div>

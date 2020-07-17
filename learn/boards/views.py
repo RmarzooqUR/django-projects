@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
-from .models import Boards, Topics, User
+from .models import Boards, Topics, User, Post
 from .forms import newTopicForm, newPostForm
 from django.contrib.auth.decorators import login_required
-
+from django.views.generic import UpdateView
+from django.utils import timezone
 # Create your views here.
 
 def home(request):
@@ -70,3 +71,17 @@ def newPost(request, pk, pk2):
     else:
         form = newPostForm()
     return render(request, 'boards/newPost.html', context={'form':form, 'board':board, 'topic':topic})
+
+class EditPostView(UpdateView):
+    model = Post
+    fields=('msg','description')
+    template_name = 'boards/update_post.html'
+    pk_url_kwarg = 'post_pk'
+    context_object_name = 'post'
+    
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.updated_by = self.request.user
+        post.updated_at = timezone.now()
+        post.save()
+        return redirect('postsList', pk=post.topic.board.pk, pk2=post.topic.pk)
