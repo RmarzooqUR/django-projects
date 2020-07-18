@@ -3,7 +3,7 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.boardsHome, name='boardsHome'),
+    path('', views.boardsHome.as_view(), name='boardsHome'),
     path('<int:pk>/',views.boardTopics,name='boardTopics'),
     # re_path(r'^(?P<pk>\d+)$',views.boardTopics,name='boardTopics'),
     path('<int:pk>/new/',views.newTopic,name='newTopic'),

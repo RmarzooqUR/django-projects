@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404
 from .models import Boards, Topics, User, Post
 from .forms import newTopicForm, newPostForm
 from django.contrib.auth.decorators import login_required
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, ListView
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 # Create your views here.
@@ -16,9 +16,15 @@ def home(request):
         '</ul>'
     )
 
-def boardsHome(request):
-    boards = Boards.objects.all()
-    return render(request, template_name='boards/boards.html', context={'boards' : boards})
+# def boardsHome(request):
+#     boards = Boards.objects.all()
+#     return render(request, template_name='boards/boards.html', context={'boards' : boards})
+class boardsHome(ListView):
+    model = Boards
+    template_name = 'boards/boards.html'
+    context_object_name = 'boards'
+
+
 
 def boardTopics(request, pk):
     try:
