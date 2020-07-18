@@ -24,14 +24,21 @@ class boardsHome(ListView):
     template_name = 'boards/boards.html'
     context_object_name = 'boards'
 
+class boardTopics(ListView):
+    model = Topics
+    context_object_name = 'board'
+    paginate_by = 10
+    template_name = 'boards/board.html'
 
+    def get_context_data(self, **kwargs):
+        kwargs['board'] = self.board
+        return super().get_context_data(**kwargs)
+    
+    def get_queryset(self):
+        self.board = get_object_or_404(Boards, pk=self.kwargs.get('pk'))
+        queryset = self.board.topics_set.order_by('last_update')
+        return queryset
 
-def boardTopics(request, pk):
-    try:
-        board = Boards.objects.get(pk=pk)
-    except Boards.DoesNotExist:
-        raise Http404
-    return render(request, template_name='boards/board.html', context={'board':board})
 
 
 @login_required
@@ -51,16 +58,25 @@ def newTopic(request, pk):
 
     return render(request, template_name='boards/newTopic.html', context={'board':board, 'form':form})
 
-def postsFeed(request, pk,pk2):
-    board = get_object_or_404(Boards, pk=pk)
-    topic = get_object_or_404(Topics, pk=pk2)
-    topic.viewCount += 1
-    topic.save()
-    return render(
-        request,
-        template_name='boards/postFeed.html',
-        context={'topic':topic, 'board':board}
-    )
+class postsFeed(ListView):
+    model = Post
+    template_name = 'boards/postFeed.html'
+    context_object_name = 'posts'
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        kwargs['topic'] = self.topic
+        return super().get_context_data(**kwargs)
+
+    def get_queryset(self):
+        self.topic = get_object_or_404(
+            Topics, 
+            board__pk=self.kwargs.get('pk'), 
+            pk=self.kwargs.get('pk2')
+        )
+        queryset = self.topic.post_set.order_by('-created_at')
+        return queryset
+
 
 @login_required
 def newPost(request, pk, pk2):
@@ -73,6 +89,7 @@ def newPost(request, pk, pk2):
             post = form.save(commit=False)
             post.created_by = request.user
             post.topic = topic
+            post.topic.last_update = timezone.now()
             post.save()
             return redirect('postsList', pk=board.pk, pk2=topic.pk)
     else:
@@ -83,7 +100,7 @@ def newPost(request, pk, pk2):
 @method_decorator(login_required, name='dispatch')
 class EditPostView(UpdateView):
     model = Post
-    fields=('msg','description')
+    fields = ('msg','description')
     template_name = 'boards/update_post.html'
     pk_url_kwarg = 'post_pk'
     context_object_name = 'post'
@@ -96,5 +113,6 @@ class EditPostView(UpdateView):
         post = form.save(commit=False)
         post.updated_by = self.request.user
         post.updated_at = timezone.now()
+        post.topic.last_update = timezone.now()
         post.save()
         return redirect('postsList', pk=post.topic.board.pk, pk2=post.topic.pk)

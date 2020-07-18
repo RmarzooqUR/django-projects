@@ -7,14 +7,14 @@
         <a href='{% url 'boardsHome' %}'>Home</a>
     </li>
     <li class='breadcrumb-item active'>
-        <a href="{% url 'boardTopics' board.pk%}">{{ board.name }}</a>
+        <a href="{% url 'boardTopics' topic.board.pk%}">{{ topic.board.name }}</a>
     </li>
     <li class='breadcrumb-item active'>{{ topic.name }}</li>
 {% endblock breadcrumb %}
 
 {% block content %}
     <div class='mb-4'>
-        <a href="{% url 'newPost' pk=board.pk pk2=topic.pk %}" class = 'btn btn-primary'>Create New Post</a>
+        <a href="{% url 'newPost' pk=topic.board.pk pk2=topic.pk %}" class = 'btn btn-primary'>Create New Post</a>
     </div>
 
     {% for post in topic.post_set.all %}
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{% url 'editPost' board.pk topic.pk post.pk %}"><button type="button" class="btn btn-primary">Edit</button></a>
+                    <a href="{% url 'editPost' topic.board.pk topic.pk post.pk %}"><button type="button" class="btn btn-primary">Edit</button></a>
                 </div>                
             </div>
         {% else %}
