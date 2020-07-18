@@ -17,7 +17,7 @@
         <a href="{% url 'newPost' pk=topic.board.pk pk2=topic.pk %}" class = 'btn btn-primary'>Create New Post</a>
     </div>
 
-    {% for post in topic.post_set.all %}
+    {% for post in page_obj %}
         {% if post.created_by == user %}
             <div class='card border-success mb-2'>
                 <div class="card-body p-3 text-success">
@@ -76,4 +76,5 @@
             </div>
         {% endif %}
     {% endfor %}
+    {% include 'boards/includes/paginated.html' %}
 {% endblock content %}

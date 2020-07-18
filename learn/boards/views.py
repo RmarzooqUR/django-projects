@@ -27,7 +27,7 @@ class boardsHome(ListView):
 class boardTopics(ListView):
     model = Topics
     context_object_name = 'board'
-    paginate_by = 10
+    paginate_by = 20
     template_name = 'boards/board.html'
 
     def get_context_data(self, **kwargs):
@@ -62,7 +62,7 @@ class postsFeed(ListView):
     model = Post
     template_name = 'boards/postFeed.html'
     context_object_name = 'posts'
-    paginate_by = 10
+    paginate_by = 4
 
     def get_context_data(self, **kwargs):
         kwargs['topic'] = self.topic

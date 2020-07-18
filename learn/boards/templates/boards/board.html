@@ -28,7 +28,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for topic in board.topics_set.all %}
+            {% for topic in page_obj %}
                 <tr>
                     <td><a href='{% url 'postsList' pk=topic.board.pk pk2=topic.pk %}'>{{ topic.name }}</a></td>
                     <td>{{ topic.description }}</td>
@@ -52,4 +52,6 @@
             {% endfor %}
         </tbody>
     </table>
+
+    {% include 'boards/includes/paginated.html' %}
 {% endblock content %}
