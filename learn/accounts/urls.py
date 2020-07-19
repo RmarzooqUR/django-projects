@@ -22,4 +22,5 @@ urlpatterns = [
         template_name='accounts/change_pw.html'),name='password_change'),
     path('settings/change_pw/done', auth_views.PasswordChangeDoneView.as_view(
         template_name='accounts/change_pw_done.html'), name='password_change_done'),
+    path('settings/myaccount', views.UpdatUserView.as_view(), name='myaccount'),
 ]

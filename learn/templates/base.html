@@ -24,6 +24,7 @@
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">{{ user.username }}</a>
                 <div class="dropdown-menu dropdown-menu-right">
                   <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
+                  <a class='dropdown-item' href="{% url 'myaccount' %}">My Account</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                 </div>

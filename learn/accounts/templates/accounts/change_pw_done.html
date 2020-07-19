@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 
-{% block body %}
+{% block breadcrumb %}
+<li class='breadcrumb-iten'>Password Changed</li>
+{% endblock breadcrumb %}
+
+{% block content %}
 
 <div class='container col-lg-4 col-md-6 col-sm-8'>
-    <h2 class='text-center my-4'>Password Changed</h2>
     <div class='card'>
         <div class='card-body'>
             <p class='alert alert-success'>Your Password has been successfully changed, you can now login with the new password</p>
@@ -11,4 +14,4 @@
         </div>
     </div>
 </div>
-{% endblock body %}
+{% endblock content %}
