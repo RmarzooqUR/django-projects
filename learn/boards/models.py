@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import Truncator
+from django.utils.html import mark_safe
+from markdown import markdown
 # Create your models here.
 class Boards(models.Model):
     name = models.CharField(max_length=50,unique=True)
@@ -34,4 +36,7 @@ class Post(models.Model):
 
     def __str__(self):
         return Truncator(self.msg).chars(30)
+    
+    def get_markdown(self):
+        return mark_safe(markdown(self.msg, safe_mode='escape'))
     
