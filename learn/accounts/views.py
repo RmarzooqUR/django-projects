@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.views.generic import UpdateView
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def signup(request):
@@ -18,6 +20,8 @@ def signup(request):
         form = signUpForm()
     return render(request, 'accounts/signup.html', context={'form':form})
 
+
+@method_decorator(login_required, name='dispatch')
 class UpdatUserView(UpdateView):
     model = User
     template_name = 'accounts/my_account.html'
