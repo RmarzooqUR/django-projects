@@ -3,3 +3,4 @@ django-widget-tweaks
 pylint-django
 django-environ
 markdown
+python-decouple

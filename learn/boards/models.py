@@ -39,4 +39,3 @@ class Post(models.Model):
     
     def get_markdown(self):
         return mark_safe(markdown(self.msg, safe_mode='escape'))
-    
