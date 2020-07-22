@@ -1,8 +1,8 @@
 # setup
 
 ## Create virtual environment
-`virtualenv .venv`
-`source .venv/bin/activate`
+- `virtualenv .venv`
+- `source .venv/bin/activate`
 
 ## Install Requirements
 `pip install requirements.txt`
@@ -15,5 +15,5 @@ ALLOWED_HOSTS=.localhost, 127.0.0.1
 
 ```
  ## run
- `python manage.py migrate`
- `python manage.py runserver`
+ - `python manage.py migrate`
+ - `python manage.py runserver`
